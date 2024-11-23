@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Figma Prototypes</title>
+    <title>CS6750 Team Project Initial Prototypes</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,29 +41,72 @@
         nav button:hover {
             background-color: #0056b3;
         }
+        nav button.active {
+            background-color: #0056b3;
+            cursor: default;
+        }
+        nav button:hover:not(.active) {
+            background-color: #0056b3;
+        }
+        #description-above {
+            margin: 1rem 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        #description-below {
+            margin: 1rem 0;
+            font-size: 1rem;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>CS6750 HCI Team Project Initial Prototypes - Discord</h1>
+        <h1>CS6750 Team Project Initial Prototypes - Discord</h1>
     </header>
+    <div id="description-above">
+        This project intends to improve the ability of Discord users to organize their servers and DMs. Please navigate through each of the Figma prototypes below to explore the different designs.
+    </div>
     <nav>
-        <button onclick="showPrototype('prototype1')">Prototype 1</button>
-        <button onclick="showPrototype('prototype2')">Prototype 2</button>
-        <button onclick="showPrototype('prototype3')">Prototype 3</button>
+        <button id="btn-prototype1" class="active" onclick="showPrototype('prototype1')">Prototype 1</button>
+        <button id="btn-prototype2" onclick="showPrototype('prototype2')">Prototype 2</button>
+        <button id="btn-prototype3" onclick="showPrototype('prototype3')">Prototype 3</button>
     </nav>
+    <div id="description-below">
+        This is the description for Prototype 1. It showcases the initial design concept.
+    </div>
     <iframe id="prototype" src="https://www.figma.com/embed?proto1" allowfullscreen></iframe>
 
     <script>
         const prototypes = {
-            prototype1: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=0%3A1&node-id=54-1694&node-type=canvas&viewport=442%2C303%2C0.17&scaling=contain&content-scaling=fixed&starting-point-node-id=46%3A406&embed-host=share",
-            prototype2: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=1%3A2&node-id=69-710&node-type=canvas&viewport=-81%2C575%2C0.08&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=69%3A716&embed-host=share",
-            prototype3: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=1%3A3&node-id=121-1384&node-type=frame&viewport=-618%2C-158%2C0.72&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=121%3A1384&embed-host=share"
+            prototype1: {
+                url: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=0%3A1&node-id=46-406&node-type=canvas&viewport=442%2C303%2C0.17&scaling=contain&content-scaling=fixed&starting-point-node-id=46%3A406&embed-host=share",
+                description: "Prototype 1 allows users to tag servers, DMs, and friends. Tagged entities can be filtered or searched for."
+            },
+            prototype2: {
+                url: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=1%3A2&node-id=69-716&node-type=canvas&viewport=-81%2C575%2C0.08&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=69%3A716&embed-host=share",
+                description: "Prototype 2 allows users to expand the sidebar and pin individual servers and DMs."
+            },
+            prototype3: {
+                url: "https://embed.figma.com/proto/hrQqeue4dBJpJF2rscjrlE/Initial-Prototypes?page-id=1%3A3&node-id=121-1384&node-type=frame&viewport=-618%2C-158%2C0.72&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=121%3A1384&embed-host=share",
+                description: "Prototype 3 auto-categorizes servers by topic. Users can toggle auto-categorization, as well as the width of the sidebar."
+            }
         };
 
         function showPrototype(key) {
+            // Update iframe source
             const iframe = document.getElementById('prototype');
-            iframe.src = prototypes[key];
+            iframe.src = prototypes[key].url;
+
+            // Update button states
+            document.querySelectorAll('nav button').forEach(button => {
+                button.classList.remove('active');
+            });
+            document.getElementById(`btn-${key}`).classList.add('active');
+
+            // Update description below
+            const descriptionBelow = document.getElementById('description-below');
+            descriptionBelow.textContent = prototypes[key].description;
         }
     </script>
 </body>
